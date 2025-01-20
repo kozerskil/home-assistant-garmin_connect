@@ -241,7 +241,7 @@ class GarminConnectSensor(CoordinatorEntity, SensorEntity):
 
         # Only show the last 10 badges for performance reasons
         if self._type == "badges":
-            attributes["badges"] = self.coordinator.data[self._type][-10:]
+            attributes["badges"] = sorted(self.coordinator.data[self._type], key=lambda x: x["badgeEarnedDate"], reverse=True)[-10:]
 
         if self._type == "nextAlarm":
             attributes["next_alarms"] = self.coordinator.data[self._type]
